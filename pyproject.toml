@@ -1,0 +1,28 @@
+[project]
+name = "nanchang-house-price-stacking"
+version = "1.0.0"
+description = "Official companion code and sample data for the comparative study of second-hand housing price prediction based on machine learning regression algorithms (Nanchang)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Pan Zhao" },
+    { name = "Xingchen Zhao" },
+]
+dependencies = [
+    "scikit-learn==1.8.0",
+    "numpy==2.4.4",
+    "pandas==3.0.2",
+    "scipy==1.17.1",
+    "xgboost==3.2.0",
+    "lightgbm==4.6.0",
+    "catboost==1.2.10",
+    "shap==0.51.0",
+    "matplotlib==3.10.9",
+    "requests==2.33.1",
+    "playwright==1.41.2",
+    "pytest==9.0.2",
+]
+
+[tool.uv]
+package = false

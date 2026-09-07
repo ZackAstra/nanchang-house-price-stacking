@@ -1,0 +1,16 @@
+# Core dependencies for the Nanchang second-hand housing price prediction project.
+# Python >= 3.11
+scikit-learn==1.8.0
+numpy==2.4.4
+pandas==3.0.2
+scipy==1.17.1
+xgboost==3.2.0
+lightgbm==4.6.0
+catboost==1.2.10
+shap==0.51.0
+matplotlib==3.10.9
+requests==2.33.1
+playwright==1.41.2
+pytest==9.0.2
+pydantic==2.12.5
+seaborn==0.13.2

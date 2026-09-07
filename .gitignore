@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Experiment / run outputs (generated at runtime)
+data/runs/
+
+# Crawler runtime artifacts
+data/checkpoints/
+data/browser_profiles/
+data/debug/
+logs/
+
+# Editor / IDE / local tooling
+.idea/
+.vscode/
+.codefree/
+.kimi/
+.cursor/
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+data/full/
+data/runs/

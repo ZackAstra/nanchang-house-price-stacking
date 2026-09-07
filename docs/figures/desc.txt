@@ -1,0 +1,8 @@
+fig1_correlation_heatmap: Correlation Heatmap of Core Numerical Features and Total Price (10⁴ YUAN)
+fig2_convergence_curves: Training Convergence Curves: Holdout Test MAE (solid) vs Validation MAE (dashed) for Gradient Boosting Models (10⁴ YUAN). Final holdout test MAE: XGBoost Test MAE=22.59 | LightGBM Test MAE=21.86 | CatBoost Test MAE=21.40 | HistGradientBoosting Test MAE=21.95
+fig3_stacking_coefficients: Stacking Ridge Meta-Learner Coefficients for Base Learners
+fig4_semantic_positive_rate: Positive Sample Rate by Annotator Across the 29-Label Semantic System (LLM annotates 28 labels; bus_hub is rule-only)
+fig5_feature_importance: Feature Importance Visualization: (a) Top 15 Permutation Importance of Stacking Ridge (MAE Change, 10⁴ YUAN); (b) SHAP Beeswarm of HistGradientBoosting Base Learner (300 Test Samples)
+fig5a_permutation_importance: Top 15 Permutation Importance of Stacking Ridge (MAE Change, 10⁴ YUAN)
+fig6_stratified_errors: Stratified Error Visualization: (a) Regional MAE, (b) Area-Stratified MAE Trend, (c) Price Segment MAPE Distribution
+fig5b_shap_beeswarm: SHAP Beeswarm Plot of HistGradientBoosting Base Learner (Impact on Model Output)

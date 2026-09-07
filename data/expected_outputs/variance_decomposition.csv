@@ -1,0 +1,6 @@
+﻿target,group_by,n_samples,n_groups,ss_between,ss_within,ss_total,eta_squared,icc
+total_price_wan,community_id,6909,999,5524492.688806,2870780.014796,8395272.703602,0.658048,0.602316
+total_price_wan,region_slug,6916,13,1852109.875944,6546438.243165,8398548.119109,0.220527,0.234023
+unit_price_wan_per_sqm,community_id,6909,999,449.451284,151.067825,600.519109,0.748438,0.707697
+unit_price_wan_per_sqm,region_slug,6916,13,188.916449,411.877315,600.793764,0.314445,0.331769
+total_price_wan,community_mean_baseline,1382,914,,,,,
