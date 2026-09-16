@@ -1,0 +1,10 @@
+{
+  "total_records": 7140,
+  "expected": 7140,
+  "missing_house_ids": 0,
+  "extra_house_ids": 0,
+  "api_errors": 0,
+  "parse_failures": 0,
+  "any_label_coverage": 0.9911764705882353,
+  "mean_positive_labels": 3.534733893557423
+}

@@ -17,7 +17,6 @@ plt.rcParams["axes.unicode_minus"] = False
 
 OUTPUT_DIR = __import__("pathlib").Path("docs/figures")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-DESC_PATH = OUTPUT_DIR / "desc.txt"
 
 # Load data：从原始采集文件重建特征并应用无泄漏参考中位数（与主实验同一代码路径）。
 # 不读 cleaned_features.csv 快照：CSV 往返浮点噪声会被提升树混沌放大
@@ -139,16 +138,11 @@ shap_values = explainer.shap_values(X_sample)
 fig, ax = plt.subplots(figsize=(10, 10))
 shap.summary_plot(
     shap_values, X_sample, feature_names=feature_names,
-    show=False, plot_size=None, max_display=20,
+    show=False, plot_size=None, max_display=20, rng=42,
 )
 plt.tight_layout()
 fig.savefig(OUTPUT_DIR / "fig5b_shap_beeswarm.svg", format="svg", dpi=300, bbox_inches="tight")
 fig.savefig(OUTPUT_DIR / "fig5b_shap_beeswarm.png", format="png", dpi=300, bbox_inches="tight")
 plt.close(fig)
-
-# Append description
-desc_line = "fig5b_shap_beeswarm: SHAP Beeswarm Plot of HistGradientBoosting Base Learner (Impact on Model Output)\n"
-with open(DESC_PATH, "a", encoding="utf-8") as f:
-    f.write(desc_line)
 
 print("SHAP beeswarm regenerated in docs/figures/")

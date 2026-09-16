@@ -22,6 +22,8 @@ dependencies = [
     "requests==2.33.1",
     "playwright==1.41.2",
     "pytest==9.0.2",
+    "pydantic==2.12.5",
+    "seaborn==0.13.2",
 ]
 
 [tool.uv]

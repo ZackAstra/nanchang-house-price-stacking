@@ -9,8 +9,48 @@ __pycache__/
 venv/
 env/
 
-# Experiment / run outputs (generated at runtime)
-data/runs/
+# Experiment / run outputs (generated at runtime).
+# The small artifacts that back the paper's reported numbers are re-included below.
+data/runs/*
+!data/runs/main_seed42/
+data/runs/main_seed42/*
+!data/runs/main_seed42/feature_importance.csv
+!data/runs/main_seed42/error_stratification.csv
+!data/runs/semantic_deepseek/
+data/runs/semantic_deepseek/*
+!data/runs/semantic_deepseek/experiment_summary.csv
+!data/runs/semantic_deepseek/semantic_feature_comparison.csv
+!data/runs/semantic_deepseek/predictions/
+data/runs/semantic_deepseek/predictions/*
+!data/runs/semantic_deepseek/predictions/*.csv
+!data/runs/semantic_deepseek_seed_7/
+!data/runs/semantic_deepseek_seed_84/
+!data/runs/semantic_deepseek_seed_168/
+data/runs/semantic_deepseek_seed_7/*
+data/runs/semantic_deepseek_seed_84/*
+data/runs/semantic_deepseek_seed_168/*
+!data/runs/semantic_deepseek_seed_7/experiment_summary.csv
+!data/runs/semantic_deepseek_seed_84/experiment_summary.csv
+!data/runs/semantic_deepseek_seed_168/experiment_summary.csv
+!data/runs/semantic_deepseek_seed_7/predictions_log_rule_semantic__stacking_ridge.csv
+!data/runs/semantic_deepseek_seed_84/predictions_log_rule_semantic__stacking_ridge.csv
+!data/runs/semantic_deepseek_seed_168/predictions_log_rule_semantic__stacking_ridge.csv
+!data/runs/semantic_logarea_seed42/
+!data/runs/semantic_logarea_seed7/
+!data/runs/semantic_logarea_seed84/
+!data/runs/semantic_logarea_seed168/
+data/runs/semantic_logarea_seed42/*
+data/runs/semantic_logarea_seed7/*
+data/runs/semantic_logarea_seed84/*
+data/runs/semantic_logarea_seed168/*
+!data/runs/semantic_logarea_seed42/experiment_summary.csv
+!data/runs/semantic_logarea_seed7/experiment_summary.csv
+!data/runs/semantic_logarea_seed84/experiment_summary.csv
+!data/runs/semantic_logarea_seed168/experiment_summary.csv
+!data/runs/semantic_logarea_seed42/predictions_log_area_rule_semantic__stacking_ridge.csv
+!data/runs/semantic_logarea_seed7/predictions_log_area_rule_semantic__stacking_ridge.csv
+!data/runs/semantic_logarea_seed84/predictions_log_area_rule_semantic__stacking_ridge.csv
+!data/runs/semantic_logarea_seed168/predictions_log_area_rule_semantic__stacking_ridge.csv
 
 # Crawler runtime artifacts
 data/checkpoints/
@@ -29,5 +69,7 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
-data/full/
-data/runs/
+
+# Full dataset stays out of the repository; the placeholder README ships.
+data/full/*
+!data/full/README.md

@@ -437,8 +437,9 @@ def _compute_region_ai_medians(communities_path: Path) -> dict[str, float]:
     if reference_path.exists():
         return {k: float(v) for k, v in json.loads(reference_path.read_text(encoding="utf-8")).items()}
     data_root = Path(communities_path).parent.parent
+    glob_pattern = "*/output/*_communities.jsonl"
     region_values: dict[str, list[float]] = {}
-    for community_file in sorted(data_root.glob("*/output/*_communities.jsonl")):
+    for community_file in sorted(data_root.glob(glob_pattern)):
         region = community_file.stem.removesuffix("_communities")
         for record in _read_jsonl(community_file):
             poi_summary = record.get("poi_summary")
@@ -448,6 +449,10 @@ def _compute_region_ai_medians(communities_path: Path) -> dict[str, float]:
                 for poi_type in POI_TYPES
             }
             region_values.setdefault(region, []).append(float(_build_accessibility_index(pd.DataFrame([row])).iloc[0]))
+    if not region_values:
+        raise FileNotFoundError(
+            f"未能从 {data_root / glob_pattern} 找到任何区域社区采集文件，且聚合参考文件 {reference_path} 不存在"
+        )
     return {region: float(np.median(values)) for region, values in region_values.items() if values}
 
 
@@ -464,9 +469,15 @@ def _apply_reference_group_medians(
     """
     layout_median = train_df.groupby("house_layout", dropna=False)["area_sqm"].median()
     layout_global = float(train_df["area_sqm"].median())
-    region_fallback = float(np.median(list(region_ai_medians.values()))) if region_ai_medians else float(
-        train_df["accessibility_index"].median()
-    )
+    if region_ai_medians:
+        region_fallback = float(np.median(list(region_ai_medians.values())))
+    else:
+        warnings.warn(
+            "区域 AI 中位数基准为空，未见区域回退到训练集 accessibility_index 全局中位数",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+        region_fallback = float(train_df["accessibility_index"].median())
     for df in (train_df, test_df):
         layout_ref = df["house_layout"].map(layout_median).fillna(layout_global).clip(lower=1)
         df["area_layout_efficiency"] = df["area_sqm"] / layout_ref
@@ -1491,7 +1502,9 @@ def _write_shap_analysis(
     ).sort_values(by="mean_abs_shap", ascending=False)
     importance_df.to_csv(output_dir / "shap_importance.csv", index=False, encoding="utf-8-sig")
 
-    shap_module.summary_plot(shap_array, transformed_sample, feature_names=feature_names, show=False, max_display=20)
+    shap_module.summary_plot(
+        shap_array, transformed_sample, feature_names=feature_names, show=False, max_display=20, rng=random_state
+    )
     plt.tight_layout()
     plt.savefig(output_dir / "shap_beeswarm.png", dpi=180)
     plt.close()

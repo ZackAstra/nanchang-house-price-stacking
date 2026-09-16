@@ -113,7 +113,7 @@ LLM_SEMANTIC_LABELS = [
 
 def run_llm_semantic_vs_rule_experiment(
     config: ResearchRunConfig,
-    llm_features_path: Path,
+    llm_features_path: Path | None,
     only_experiments: list[str] | None = None,
 ) -> ResearchResult:
     """执行 LLM 语义 vs 规则语义增量效果对比实验。
@@ -139,8 +139,13 @@ def run_llm_semantic_vs_rule_experiment(
     merged_df, audit = _clean_and_join(houses_df, communities_df)
     feature_df = _build_features(merged_df)
 
-    # 2. 加载 LLM 语义特征并合并
-    llm_df = _load_llm_semantic_features(llm_features_path)
+    # 2. 加载 LLM 语义特征并合并（仅跑规则语义实验组时可不提供 LLM 特征文件）
+    if llm_features_path is None:
+        llm_df = feature_df[["house_id"]].drop_duplicates().reset_index(drop=True)
+        for col in LLM_SEMANTIC_LABELS:
+            llm_df[col] = 0
+    else:
+        llm_df = _load_llm_semantic_features(llm_features_path)
     feature_df = feature_df.merge(llm_df, on="house_id", how="left")
     for col in LLM_SEMANTIC_LABELS:
         feature_df[col] = feature_df[col].fillna(0).astype(int)
@@ -688,7 +693,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="LLM 语义 vs 规则语义增量效果对比")
     parser.add_argument("--houses", required=True, help="房源 JSONL 路径")
     parser.add_argument("--communities", required=True, help="小区 JSONL 路径")
-    parser.add_argument("--llm-features", required=True, help="LLM 语义特征 CSV 路径")
+    parser.add_argument(
+        "--llm-features",
+        help="LLM 语义特征 CSV 路径（仅当选择 llm_* 实验组时必需）",
+    )
     parser.add_argument("--output-dir", required=True, help="研究产物根目录")
     parser.add_argument("--run-id", help="研究运行 ID")
     parser.add_argument("--random-state", type=int, default=42)
@@ -697,6 +705,12 @@ def main() -> None:
     parser.add_argument("--sample-limit", type=int, help="抽样上限（quick 模式）")
     parser.add_argument("--only", help="仅运行指定实验组（逗号分隔），用于增量补跑")
     args = parser.parse_args()
+
+    only_experiments = [s.strip() for s in args.only.split(",")] if args.only else None
+    if only_experiments is None or any("llm" in name for name in only_experiments):
+        if not args.llm_features:
+            parser.error("--llm-features 在选择 llm_* 实验组时必须提供")
+    llm_features_path = Path(args.llm_features) if args.llm_features else None
 
     run_id = args.run_id or f"llm_semantic_{datetime.now().strftime('%Y%m%d%H%M%S')}"
     config = ResearchRunConfig(
@@ -711,8 +725,8 @@ def main() -> None:
     )
     result = run_llm_semantic_vs_rule_experiment(
         config=config,
-        llm_features_path=Path(args.llm_features),
-        only_experiments=[s.strip() for s in args.only.split(",")] if args.only else None,
+        llm_features_path=llm_features_path,
+        only_experiments=only_experiments,
     )
 
 

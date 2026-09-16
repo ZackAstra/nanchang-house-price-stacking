@@ -1,0 +1,4 @@
+﻿prompt,n_total,parse_ok_rate,any_label_coverage,kappa_vs_rule_mean,kappa_vs_rule_median
+baseline,500,0.968000,0.991736,0.565782,0.713144
+fewshot,500,0.950000,0.997895,0.504619,0.568654
+strict,500,0.996000,0.995984,0.567987,0.654143

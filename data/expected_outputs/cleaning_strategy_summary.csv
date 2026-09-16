@@ -1,0 +1,6 @@
+﻿clean_name,total_samples,removed_samples,removal_rate
+original_no_cleaning,5533,0,0.0
+strict_cleaning,5533,258,0.04662931501897705
+moderate_cleaning,5533,21,0.0037954093620097594
+unit_price_only_cleaning,5533,179,0.03235134646665462
+total_price_only_cleaning,5533,56,0.010121091632026026

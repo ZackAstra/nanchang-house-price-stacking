@@ -1,7 +1,7 @@
 """
 Regenerate all 6 figures with unified English labels, no on-figure titles,
 and descriptions extracted to docs/figures/desc.txt.
-Run with: source common/Scripts/activate && python scripts/generate_figures_v2.py
+Run with: source common/Scripts/activate && python scripts/generate_figures_review3.py
 """
 from __future__ import annotations
 
@@ -192,10 +192,12 @@ convergence_histories["CatBoost"] = {
     "test_final_mae": float(cat_test_mae),
 }
 
-# HistGradientBoosting (manual eval history every 10 iterations)
+# HistGradientBoosting (manual eval history every 10 iterations, plus the
+# 240-iteration endpoint so the legend reports the model tabulated in the paper)
+HGB_ITERATIONS = list(range(1, 241, 10)) + [240]
 hgb_val_history = []
 hgb_test_history = []
-for n_iter in range(1, 241, 10):
+for n_iter in HGB_ITERATIONS:
     hgb_temp = HistGradientBoostingRegressor(
         max_iter=n_iter, learning_rate=0.055, l2_regularization=0.05,
         random_state=RANDOM_STATE,
@@ -212,7 +214,7 @@ hgb_model.fit(x_train_proc, y_train)
 convergence_histories["HistGradientBoosting"] = {
     "val_history": hgb_val_history,
     "test_history": hgb_test_history,
-    "iterations": list(range(1, 241, 10)),
+    "iterations": HGB_ITERATIONS,
     "val_final_mae": float(hgb_val_history[-1]),
     "test_final_mae": float(hgb_test_history[-1]),
 }
@@ -356,12 +358,21 @@ def plot_fig2():
 # ------------------------------------------------------------------
 def plot_fig3():
     basename = "fig3_stacking_coefficients"
-    descriptions[basename] = "Stacking Ridge Meta-Learner Coefficients for Base Learners"
+    descriptions[basename] = "StackingRidge Meta-Learner Coefficients for Base Learners"
 
     coefs = pd.DataFrame({
         "BaseLearner": stacking_names,
         "Coefficient": stacking_coefs,
     }).sort_values(by="Coefficient", key=lambda x: x.abs(), ascending=False)
+
+    # N1: 持久化元学习器系数，为论文 §5.2 的系数数值提供可核验产物
+    coef_meta = pd.DataFrame({
+        "base_learner": stacking_names,
+        "coefficient": stacking_coefs,
+    }).sort_values(by="base_learner").reset_index(drop=True)
+    coef_meta_path = Path("data/expected_outputs/stacking_meta_coefficients.csv")
+    coef_meta_path.parent.mkdir(parents=True, exist_ok=True)
+    coef_meta.to_csv(coef_meta_path, index=False, encoding="utf-8-sig")
 
     fig, ax = plt.subplots(figsize=(10, 6))
     colors_bar = ["#2ca02c" if v >= 0 else "#d62728" for v in coefs["Coefficient"]]
@@ -505,7 +516,7 @@ def _translate_feature_name(name: str) -> str:
 def plot_fig5():
     basename = "fig5_feature_importance"
     descriptions[basename] = (
-        "Feature Importance Visualization: (a) Top 15 Permutation Importance of Stacking Ridge "
+        "Feature Importance Visualization: (a) Top 15 Permutation Importance of StackingRidge "
         "(MAE Change, 10⁴ YUAN); (b) SHAP Beeswarm of HistGradientBoosting Base Learner (300 Test Samples)"
     )
 
@@ -552,7 +563,7 @@ def plot_fig5():
     plt.sca(ax2)
     shap.summary_plot(
         shap_values, x_sample, feature_names=feature_names,
-        show=False, plot_size=None, max_display=15,
+        show=False, plot_size=None, max_display=15, rng=RANDOM_STATE,
     )
 
     plt.tight_layout()
@@ -564,7 +575,7 @@ def plot_fig5():
 # ------------------------------------------------------------------
 def plot_fig5a():
     basename = "fig5a_permutation_importance"
-    descriptions[basename] = "Top 15 Permutation Importance of Stacking Ridge (MAE Change, 10⁴ YUAN)"
+    descriptions[basename] = "Top 15 Permutation Importance of StackingRidge (MAE Change, 10⁴ YUAN)"
 
     fi = pd.read_csv(DATA_DIR / "feature_importance.csv")
     fi = fi.sort_values(by="importance_mean", key=lambda x: x.abs(), ascending=False).head(15)
@@ -648,6 +659,12 @@ if __name__ == "__main__":
     plot_fig5()
     plot_fig5a()
     plot_fig6()
+
+    # fig5b 的 PNG/SVG 由 generate_shap_beeswarm_review3.py 生成，其描述置于此处，
+    # 以保证 desc.txt 只有本脚本一个写入者（行序与发布版 desc.txt 一致，fig5b 居末）。
+    descriptions["fig5b_shap_beeswarm"] = (
+        "SHAP Beeswarm Plot of HistGradientBoosting Base Learner (Impact on Model Output)"
+    )
 
     # Write descriptions
     with open(DESC_PATH, "w", encoding="utf-8") as f:

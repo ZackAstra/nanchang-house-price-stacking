@@ -1,0 +1,2 @@
+﻿experiment_name,semantic_type,target_col,use_log_target,use_log_area,kept_samples,test_samples,best_model,mae,rmse,r2,mape,delta_vs_new_baseline,delta_vs_old_baseline
+log_area_rule_semantic,rule,log_total_price_wan,True,True,5533,1383,stacking_ridge,20.09561897677637,25.595770338426423,0.3292042457450599,0.2284325835992114,-0.04728102322362915,-0.8163034110252028

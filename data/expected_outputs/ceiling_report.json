@@ -1,0 +1,58 @@
+{
+  "run_id": "review5_ceiling",
+  "sample_count": 6916,
+  "train_count": 5533,
+  "test_count": 1383,
+  "current_best_mae": 20.552331586754455,
+  "current_best_r2": 0.30586988768649703,
+  "variance_analysis": {
+    "group_count": 214,
+    "total_samples_in_groups": 6632,
+    "mean_cv": 0.24706004013223512,
+    "median_cv": 0.21065616087320221,
+    "max_cv": 0.7771181918373467,
+    "min_cv": 0.034289633324909315,
+    "groups_with_cv_above_0_15": 156,
+    "groups_with_cv_above_0_10": 194,
+    "groups_with_cv_above_0_20": 114,
+    "pct_groups_cv_above_0_15": 0.7289719626168224
+  },
+  "community_mean_baseline": {
+    "mae": 27.270540642913915,
+    "r2": -0.17602124708894262,
+    "global_mean": 112.41281944695464,
+    "community_with_mean_count": 914,
+    "test_community_covered_count": 318,
+    "test_community_coverage_rate": 0.2299349240780911
+  },
+  "feature_marginal_analysis": [
+    {
+      "feature_set": "raw",
+      "numeric_feature_count": 5,
+      "categorical_feature_count": 6,
+      "mae": 28.464897174108927,
+      "r2": -0.2976783494079136,
+      "delta_r2_vs_raw": 0.0,
+      "delta_mae_vs_raw": 0.0
+    },
+    {
+      "feature_set": "base",
+      "numeric_feature_count": 19,
+      "categorical_feature_count": 7,
+      "mae": 25.035005644324453,
+      "r2": 0.02974375315206701,
+      "delta_r2_vs_raw": 0.3274221025599806,
+      "delta_mae_vs_raw": -3.4298915297844736
+    },
+    {
+      "feature_set": "stage3",
+      "numeric_feature_count": 27,
+      "categorical_feature_count": 7,
+      "mae": 22.901699204971774,
+      "r2": 0.17512635632786155,
+      "delta_r2_vs_raw": 0.47280470573577515,
+      "delta_mae_vs_raw": -5.563197969137153
+    }
+  ],
+  "estimated_r2_ceiling": 0.41768130134509246
+}

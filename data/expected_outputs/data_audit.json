@@ -1,0 +1,27 @@
+{
+  "raw_house_count": 7140,
+  "deduplicated_house_count": 7140,
+  "raw_community_count": 1062,
+  "deduplicated_community_count": 1062,
+  "usable_house_count": 6916,
+  "removed_invalid_count": 7,
+  "removed_outlier_count": 217,
+  "community_join_rate": 0.9988432620011567,
+  "key_field_usable_rate": 0.9990196078431373,
+  "missing_rate": {
+    "total_price_wan": 0.000980392156862745,
+    "area_sqm": 0.000980392156862745,
+    "region_slug": 0.0,
+    "room_count": 0.000980392156862745,
+    "hall_count": 0.000980392156862745,
+    "bath_count": 0.000980392156862745
+  },
+  "price_quantile_bounds": {
+    "low": 23.864,
+    "high": 260.0
+  },
+  "area_quantile_bounds": {
+    "low": 51.0556,
+    "high": 182.97120000000004
+  }
+}
