@@ -16,6 +16,7 @@ data/runs/*
 data/runs/main_seed42/*
 !data/runs/main_seed42/feature_importance.csv
 !data/runs/main_seed42/error_stratification.csv
+!data/runs/main_seed42/significance_tests.csv
 !data/runs/semantic_deepseek/
 data/runs/semantic_deepseek/*
 !data/runs/semantic_deepseek/experiment_summary.csv
