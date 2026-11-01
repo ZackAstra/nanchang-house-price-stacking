@@ -36,7 +36,7 @@ Every headline number is backed by a shipped artifact — see [Verification map]
 │   ├── samples/                 # 200-record stratified samples (houses / communities / LLM labels / LLM responses)
 │   ├── expected_outputs/        # aggregate metrics and per-sample intermediates for verification
 │   ├── reference/               # region-level AI medians (aggregate statistics)
-│   ├── runs/                    # run artifacts: Table 18 feature_importance.csv, §5.5 significance_tests.csv, §5.6 error_stratification.csv, and the Table 17 / §5.3 semantic outputs (semantic_deepseek experiment_summary + predictions, per-seed log-rule and log-area predictions); Table 19 and §5.2 artifacts live under expected_outputs/
+│   ├── runs/                    # run artifacts: former Table 18 feature_importance.csv, §5.5 significance_tests.csv, §5.6 error_stratification.csv, and the Table 7 / §5.3 semantic outputs (semantic_deepseek experiment_summary + predictions, per-seed log-rule and log-area predictions); former Table 19 and §5.2 artifacts live under expected_outputs/
 │   └── full/                    # place the full dataset here (see data/full/README.md)
 ├── llm_prompts/                 # the three LLM annotation prompts (baseline / few-shot / strict)
 └── docs/figures/                # paper figures (PNG + SVG) and desc.txt
@@ -94,7 +94,7 @@ The aggregate numbers behind every paper table are shipped under `data/expected_
 
 3. Run the analysis scripts (each documents its input and output in its header), e.g. `uv run python scripts/descriptive_stats.py`.
 
-### Table 17 (semantic features)
+### Table 7 (semantic features)
 
 The headline semantic row is produced by the dedicated runner rather than the main pipeline. With the full dataset and the LLM label CSV in place:
 
@@ -141,10 +141,10 @@ The shipped `data/expected_outputs/semantic_logarea_summary.csv` and `data/expec
 
 Notes:
 
-- `stacking_comparison.csv` holds the semantic-feature experiment (Table 17), **not** the Voting-vs-Stacking comparison, which lives in `voting_vs_stacking_metrics.csv`.
-- `combined_experiment_summary.csv` reports the **best model of each configuration** (for the log-target + strict-cleaning run that is LightGBM at MAE 20.4331). Table 16, in contrast, is a fixed-protocol table and quotes the StackingRidge member of the same run (`combined_stacking_ridge`, MAE 20.5346). Both numbers are genuine and come from the same run — they differ only in which member the table reports. Use `combined_model_metrics.csv` to see every member side by side.
-- Table 16's remaining rows (moderate / unit-price / total-price cleaning doses, polynomial interactions, quantile regression) are regenerable with the corresponding runners (`label_noise_experiment_runner.py`, `log_transform_experiment_runner.py`, `polynomial_feature_runner.py`, `quantile_regression_runner.py`) and their summary files are shipped as listed above.
-- Regenerating on a different machine is **not** bit-reproducible. `RandomForest`/`XGBoost`/`LightGBM` run with `n_jobs=-1`, which perturbs the last few significant digits (we measure ~1e-14) and hence also the tail digits of `significance_matrix.csv`; compare regenerated metrics with a tolerance (1e-6 is ample for MAE), never by byte equality. `compute_cost.csv` also records wall-clock timings (Table 21): its MAE columns reproduce exactly, but the second/ratio columns are hardware-dependent, so treat the reported seconds as indicative and the cost *ratio* as the stable quantity. The Matplotlib SVGs embed a creation timestamp and randomised `clip-path` ids, so only the PNGs are byte-stable across runs; the SVGs are equivalent, just not byte-identical.
+- `stacking_comparison.csv` holds the semantic-feature experiment (Table 7), **not** the Voting-vs-Stacking comparison, which lives in `voting_vs_stacking_metrics.csv`.
+- `combined_experiment_summary.csv` reports the **best model of each configuration** (for the log-target + strict-cleaning run that is LightGBM at MAE 20.4331). Table 6, in contrast, is a fixed-protocol table and quotes the StackingRidge member of the same run (`combined_stacking_ridge`, MAE 20.5346). Both numbers are genuine and come from the same run — they differ only in which member the table reports. Use `combined_model_metrics.csv` to see every member side by side.
+- Table 6's remaining rows (moderate / unit-price / total-price cleaning doses, polynomial interactions, quantile regression) are regenerable with the corresponding runners (`label_noise_experiment_runner.py`, `log_transform_experiment_runner.py`, `polynomial_feature_runner.py`, `quantile_regression_runner.py`) and their summary files are shipped as listed above.
+- Regenerating on a different machine is **not** bit-reproducible. `RandomForest`/`XGBoost`/`LightGBM` run with `n_jobs=-1`, which perturbs the last few significant digits (we measure ~1e-14) and hence also the tail digits of `significance_matrix.csv`; compare regenerated metrics with a tolerance (1e-6 is ample for MAE), never by byte equality. `compute_cost.csv` also records wall-clock timings (Table 8): its MAE columns reproduce exactly, but the second/ratio columns are hardware-dependent, so treat the reported seconds as indicative and the cost *ratio* as the stable quantity. The Matplotlib SVGs embed a creation timestamp and randomised `clip-path` ids, so only the PNGs are byte-stable across runs; the SVGs are equivalent, just not byte-identical.
 
 ## Tests
 
