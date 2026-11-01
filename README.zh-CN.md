@@ -36,7 +36,7 @@
 │   ├── samples/                 # 200 条分层抽样示例（房源/社区/LLM 标注/LLM 原始响应）
 │   ├── expected_outputs/        # 聚合指标与逐样本中间产物（复现核对基准）
 │   ├── reference/               # 区域 AI 中位数（聚合统计）
-│   ├── runs/                    # 主实验产物：Table 18 feature_importance.csv、§5.5 significance_tests.csv、§5.6 error_stratification.csv，以及 Table 17 / §5.3 语义产物（semantic_deepseek 的 experiment_summary 与 predictions、各 seed 的 log-rule 与 log-area 预测）；Table 19 与 §5.2 的产物在 expected_outputs/ 下
+│   ├── runs/                    # 主实验产物：原 Table 18 feature_importance.csv、§5.5 significance_tests.csv、§5.6 error_stratification.csv，以及 Table 7 / §5.3 语义产物（semantic_deepseek 的 experiment_summary 与 predictions、各 seed 的 log-rule 与 log-area 预测）；原 Table 19 与 §5.2 的产物在 expected_outputs/ 下
 │   └── full/                    # 完整数据放置处（见 data/full/README.md）
 ├── llm_prompts/                 # 3 个 LLM 标注 prompt 全文（baseline / few-shot / strict）
 └── docs/figures/                # 论文图（PNG + SVG）与 desc.txt
@@ -94,7 +94,7 @@ uv run python -m src.research.run_price_research \
 
 3. 运行分析脚本（每个脚本头部均注明输入与输出），例如 `uv run python scripts/descriptive_stats.py`。
 
-### Table 17（语义特征）
+### Table 7（语义特征）
 
 头条语义行由专用 runner 产出，而非主流水线。备好完整数据与 LLM 标签 CSV 后：
 
@@ -115,18 +115,18 @@ uv run python -m src.research.llm_semantic_vs_rule_runner \
 
 | 论文表格 / 小节 | 对应产物 |
 |---|---|
-| Table 3 描述性统计 | `descriptive_stats_numeric.csv`、`descriptive_stats_categorical.csv` |
-| Table 7 特征集消融 | `feature_set_ablation_metrics.csv` |
-| Table 13 模型对比 | `model_metrics.csv` |
-| Table 14 Voting vs Stacking | `voting_vs_stacking_metrics.csv` |
-| Table 15 多种子稳定性 | `multi_seed_summary.csv`、`review5_seed_{7,21,84,168}/model_metrics.csv` |
-| Table 16 误差诊断 | `combined_experiment_summary.csv`、`combined_model_metrics.csv`、`combined_stacking_comparison.csv`、`label_noise_summary.csv`、`cleaning_strategy_summary.csv`、`poly_experiment_summary.csv`、`quantile_model_metrics.csv`、`log_transform_summary.csv` |
-| Table 17 语义特征 | `stacking_comparison.csv`（语义各行）、`semantic_feature_comparison.csv`、`semantic_logarea_summary.csv`、`semantic_pair_tests_review5.csv` |
-| Table 18 置换重要性 | `data/runs/main_seed42/feature_importance.csv`（图：`fig5a_permutation_importance`） |
-| Table 19 显著性矩阵 | `significance_matrix.csv` |
-| Table 20 随机划分性能 | `random_split_model_metrics.csv` |
-| Table 21 算力成本 | `compute_cost.csv` |
-| Table 22 指标敏感性 | `sensitivity_results.csv` |
+| Table 2 描述性统计 | `descriptive_stats_numeric.csv`、`descriptive_stats_categorical.csv` |
+| Table 4 特征集消融 | `feature_set_ablation_metrics.csv` |
+| Table 5 模型对比 | `model_metrics.csv` |
+| 仅仓库（下沉）：Voting vs Stacking | `voting_vs_stacking_metrics.csv` |
+| 仅仓库（下沉）：多种子稳定性 | `multi_seed_summary.csv`、`review5_seed_{7,21,84,168}/model_metrics.csv` |
+| Table 6 误差诊断 | `combined_experiment_summary.csv`、`combined_model_metrics.csv`、`combined_stacking_comparison.csv`、`label_noise_summary.csv`、`cleaning_strategy_summary.csv`、`poly_experiment_summary.csv`、`quantile_model_metrics.csv`、`log_transform_summary.csv` |
+| Table 7 语义特征 | `stacking_comparison.csv`（语义各行）、`semantic_feature_comparison.csv`、`semantic_logarea_summary.csv`、`semantic_pair_tests_review5.csv` |
+| 仅仓库（下沉）：置换重要性 | `data/runs/main_seed42/feature_importance.csv`（图：`fig5a_permutation_importance`） |
+| 仅仓库（下沉）：显著性矩阵 | `significance_matrix.csv` |
+| 仅仓库（下沉）：随机划分性能 | `random_split_model_metrics.csv` |
+| Table 8 算力成本 | `compute_cost.csv` |
+| 仅仓库（下沉）：指标敏感性 | `sensitivity_results.csv` |
 | §2.2 预处理计数 | `data_audit.json` |
 | §5.3 方差分解 | `variance_decomposition.csv` |
 | §5.3 语义一致性 | `semantic_agreement.csv`、`llm_prompt_temperature_eval.csv`、`llm_label_rate_corr.csv`、`qwen_bridge_summary.csv`、`llm_full_parse_report.json` |
@@ -134,13 +134,17 @@ uv run python -m src.research.llm_semantic_vs_rule_runner \
 | §5.3 信息上限 | `ceiling_report.json`、`feature_marginal_analysis.csv` |
 | §5.5 显著性检验 | `data/runs/main_seed42/significance_tests.csv` |
 | §5.6 分层误差 | `data/runs/main_seed42/error_stratification.csv`（图：`fig6_stratified_errors`） |
+| 补充材料：特征定义 | `docs/supplementary/table3_feature_definitions.md` |
+| 补充材料：超参数设置 | `docs/supplementary/table6_hyperparameter_settings.md` |
+| 补充材料：算法伪代码 | `docs/supplementary/table7_algorithm_pseudocode.md` |
+| 补充材料：评估指标适用场景 | `docs/supplementary/evaluation_metrics_applicability.md` |
 
 说明：
 
-- `stacking_comparison.csv` 存放的是**语义特征实验（Table 17）**，而非 Voting-vs-Stacking 对比；后者在 `voting_vs_stacking_metrics.csv`。
-- `combined_experiment_summary.csv` 报告的是**每种配置的最优模型**（对 log 目标 + 严格清洗那次运行即 LightGBM，MAE 20.4331）。Table 16 则是固定协议表，引用同一次运行中 StackingRidge 成员的值（`combined_stacking_ridge`，MAE 20.5346）。两个数字都真实、且来自同一次运行，差别只在于表中报告的是哪一个成员；用 `combined_model_metrics.csv` 可并列查看全部成员。
-- Table 16 的其余行（moderate / 单价 / 总价清洗剂量、多项式交互、分位数回归）可用对应 runner 重算（`label_noise_experiment_runner.py`、`log_transform_experiment_runner.py`、`polynomial_feature_runner.py`、`quantile_regression_runner.py`），其汇总文件均已随附，见上表。
-- 换机重算**不是**逐位可复现的。`RandomForest`/`XGBoost`/`LightGBM` 以 `n_jobs=-1` 运行，会扰动末几位有效数字（实测约 1e-14），因此 `significance_matrix.csv` 的末位也会跟着变；请用容差比较（对 MAE 而言 1e-6 足够宽裕），不要用字节相等。`compute_cost.csv` 还记录墙钟耗时（Table 21）：其 MAE 列可精确复现，但秒数/倍数列依赖硬件，因此应把报告的秒数视为参考、而把成本**倍数**视为稳定量。Matplotlib 生成的 SVG 内嵌创建时间戳与随机 `clip-path` id，因此只有 PNG 在多次运行间字节稳定；SVG 等价但非逐字节相等。
+- `stacking_comparison.csv` 存放的是**语义特征实验（Table 7）**，而非 Voting-vs-Stacking 对比；后者在 `voting_vs_stacking_metrics.csv`。
+- `combined_experiment_summary.csv` 报告的是**每种配置的最优模型**（对 log 目标 + 严格清洗那次运行即 LightGBM，MAE 20.4331）。Table 6 则是固定协议表，引用同一次运行中 StackingRidge 成员的值（`combined_stacking_ridge`，MAE 20.5346）。两个数字都真实、且来自同一次运行，差别只在于表中报告的是哪一个成员；用 `combined_model_metrics.csv` 可并列查看全部成员。
+- Table 6 的其余行（moderate / 单价 / 总价清洗剂量、多项式交互、分位数回归）可用对应 runner 重算（`label_noise_experiment_runner.py`、`log_transform_experiment_runner.py`、`polynomial_feature_runner.py`、`quantile_regression_runner.py`），其汇总文件均已随附，见上表。
+- 换机重算**不是**逐位可复现的。`RandomForest`/`XGBoost`/`LightGBM` 以 `n_jobs=-1` 运行，会扰动末几位有效数字（实测约 1e-14），因此 `significance_matrix.csv` 的末位也会跟着变；请用容差比较（对 MAE 而言 1e-6 足够宽裕），不要用字节相等。`compute_cost.csv` 还记录墙钟耗时（Table 8）：其 MAE 列可精确复现，但秒数/倍数列依赖硬件，因此应把报告的秒数视为参考、而把成本**倍数**视为稳定量。Matplotlib 生成的 SVG 内嵌创建时间戳与随机 `clip-path` id，因此只有 PNG 在多次运行间字节稳定；SVG 等价但非逐字节相等。
 
 ## 测试
 
