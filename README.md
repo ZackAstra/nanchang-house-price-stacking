@@ -115,18 +115,18 @@ The shipped `data/expected_outputs/semantic_logarea_summary.csv` and `data/expec
 
 | Paper table / section | Artifact |
 |---|---|
-| Table 3 descriptive statistics | `descriptive_stats_numeric.csv`, `descriptive_stats_categorical.csv` |
-| Table 7 feature-set ablation | `feature_set_ablation_metrics.csv` |
-| Table 13 model comparison | `model_metrics.csv` |
-| Table 14 voting vs stacking | `voting_vs_stacking_metrics.csv` |
-| Table 15 multi-seed stability | `multi_seed_summary.csv`, `review5_seed_{7,21,84,168}/model_metrics.csv` |
-| Table 16 error diagnosis | `combined_experiment_summary.csv`, `combined_model_metrics.csv`, `combined_stacking_comparison.csv`, `label_noise_summary.csv`, `cleaning_strategy_summary.csv`, `poly_experiment_summary.csv`, `quantile_model_metrics.csv`, `log_transform_summary.csv` |
-| Table 17 semantic features | `stacking_comparison.csv` (semantic rows), `semantic_feature_comparison.csv`, `semantic_logarea_summary.csv`, `semantic_pair_tests_review5.csv` |
-| Table 18 permutation importance | `data/runs/main_seed42/feature_importance.csv` (figure: `fig5a_permutation_importance`) |
-| Table 19 significance matrix | `significance_matrix.csv` |
-| Table 20 random-split performance | `random_split_model_metrics.csv` |
-| Table 21 computational cost | `compute_cost.csv` |
-| Table 22 index sensitivity | `sensitivity_results.csv` |
+| Table 2 descriptive statistics | `descriptive_stats_numeric.csv`, `descriptive_stats_categorical.csv` |
+| Table 4 feature-set ablation | `feature_set_ablation_metrics.csv` |
+| Table 5 model comparison | `model_metrics.csv` |
+| Repository-only (sunk): voting vs stacking | `voting_vs_stacking_metrics.csv` |
+| Repository-only (sunk): multi-seed stability | `multi_seed_summary.csv`, `review5_seed_{7,21,84,168}/model_metrics.csv` |
+| Table 6 error diagnosis | `combined_experiment_summary.csv`, `combined_model_metrics.csv`, `combined_stacking_comparison.csv`, `label_noise_summary.csv`, `cleaning_strategy_summary.csv`, `poly_experiment_summary.csv`, `quantile_model_metrics.csv`, `log_transform_summary.csv` |
+| Table 7 semantic features | `stacking_comparison.csv` (semantic rows), `semantic_feature_comparison.csv`, `semantic_logarea_summary.csv`, `semantic_pair_tests_review5.csv` |
+| Repository-only (sunk): permutation importance | `data/runs/main_seed42/feature_importance.csv` (figure: `fig5a_permutation_importance`) |
+| Repository-only (sunk): significance matrix | `significance_matrix.csv` |
+| Repository-only (sunk): random-split performance | `random_split_model_metrics.csv` |
+| Table 8 computational cost | `compute_cost.csv` |
+| Repository-only (sunk): index sensitivity | `sensitivity_results.csv` |
 | §2.2 preprocessing counts | `data_audit.json` |
 | §5.3 variance decomposition | `variance_decomposition.csv` |
 | §5.3 semantic agreement | `semantic_agreement.csv`, `llm_prompt_temperature_eval.csv`, `llm_label_rate_corr.csv`, `qwen_bridge_summary.csv`, `llm_full_parse_report.json` |
@@ -134,6 +134,10 @@ The shipped `data/expected_outputs/semantic_logarea_summary.csv` and `data/expec
 | §5.3 information ceiling | `ceiling_report.json`, `feature_marginal_analysis.csv` |
 | §5.5 significance tests | `data/runs/main_seed42/significance_tests.csv` |
 | §5.6 stratified errors | `data/runs/main_seed42/error_stratification.csv` (figure: `fig6_stratified_errors`) |
+| Supplementary: feature definitions | `docs/supplementary/table3_feature_definitions.md` |
+| Supplementary: hyperparameter settings | `docs/supplementary/table6_hyperparameter_settings.md` |
+| Supplementary: algorithm pseudocode | `docs/supplementary/table7_algorithm_pseudocode.md` |
+| Supplementary: evaluation metrics applicability | `docs/supplementary/evaluation_metrics_applicability.md` |
 
 Notes:
 
